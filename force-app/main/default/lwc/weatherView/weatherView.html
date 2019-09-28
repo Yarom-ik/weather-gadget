@@ -1,0 +1,59 @@
+<template>
+    <article class="slds-card">
+        <div class="slds-card__header slds-grid">
+            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                <div class="slds-media__figure">
+                </div>
+                <div class="slds-media__body">
+                    <h2 class="slds-card__header-title">
+                        <a href="javascript:void(0);" class="slds-card__header-link slds-truncate" title="Accounts">
+                            <span>Weather</span>
+                        </a>
+                    </h2>
+                </div>
+                <div class="slds-list_horizontal">
+                    <input type="text" id="input" value={searchKey} placeholder="Enter city" required
+                        class="slds-input" />
+                    <lightning-button variant="brand" label="Show" onclick={setSearchKey}></lightning-button>
+                </div>
+            </header>
+        </div>
+        <template if:true={weather}>
+            <div class="slds-card__body slds-card__body_inner">{weather.name} {weather.sys.country}</div>
+        </template>
+        <footer class="slds-card__footer">
+            <template if:true={weather}>
+                <div class="slds-grid slds-gutters">
+
+                    <span>
+                        <img src={imgUrl} />
+                    </span>
+                    <div class="slds-col slds-size_3-of-5">
+                        <h1 class="slds-text-heading_large">
+                            {weather.main.temp} °C
+                                
+                            </h1>
+                        <table class="slds-table_edit_container slds-is-relative">
+                            <tr>
+                                <td>Min / Max Temp: </td>
+                                <td> {weather.main.temp_min} / {weather.main.temp_max} °C</td>
+                            </tr>
+                            <tr>
+                                <td>wind speed: </td>
+                                <td>{weather.wind.speed} ms</td>
+                            </tr>
+                            <tr>
+                                <td> humidity: </td>
+                                <td>{weather.main.humidity}%</td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+            </template>
+            <template if:true={error}>
+                <div class="slds-card__body slds-card__body_inner">City is not found {error}</div>
+            </template>
+        </footer>
+    </article>
+</template>
