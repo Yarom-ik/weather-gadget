@@ -8,7 +8,7 @@ export default class WeatherView extends LightningElement {
     searchKey = '';
     @track weather;
     @track imgUrl;
-    // render = false;
+    @track error;
 
     // @wire(getWeather, { searchKey: '$searchKey' })
     // wiredWeather({ error, data }) {
@@ -33,11 +33,16 @@ export default class WeatherView extends LightningElement {
             this.error = undefined;
             this.imgUrl = '';
             this.imgUrl = 'http://openweathermap.org/img/wn/' + this.weather.weather[0].icon + '@2x.png';
+            this.weather.main.temp = Math.floor(this.weather.main.temp);
+            this.weather.main.temp_min = Math.floor(this.weather.main.temp_min);
+            this.weather.main.temp_max = Math.floor(this.weather.main.temp_max);
 
             // eslint-disable-next-line no-console
             console.log('weather-dd ' + this.weather);
         } else if (error) {
-            this.error = error;
+            // eslint-disable-next-line no-console
+            console.log('error= ' + error.body.message);
+            this.error = JSON.parse(error.body.message);
             this.weather = undefined;
         }
     }
