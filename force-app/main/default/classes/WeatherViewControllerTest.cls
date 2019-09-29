@@ -2,10 +2,12 @@
 public with sharing class WeatherViewControllerTest {
 
     @TestSetup
-    static void initUserData(){      
-        insert new Weather__c(defaultCity__c = 'Minsk',
+    static void initUserData(){    
+       Weather__c weather = new Weather__c(defaultCity__c = 'Minsk',
                               accessToken__c = '435345',
+                              name = 'test',
                               url__c = 'sdfdfsd');    
+        insert weather;
     }
 
     static StaticResourceCalloutMock initMoc(){
@@ -81,9 +83,8 @@ public with sharing class WeatherViewControllerTest {
         try{
             result = WeatherViewController.getWeather('Minsk');
         } catch(Exception e){
-            
-        }
-        
+
+        }        
         Test.stopTest();
         System.assertEquals(null ,result);
     }

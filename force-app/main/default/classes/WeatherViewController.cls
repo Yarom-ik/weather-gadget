@@ -5,5 +5,4 @@ public with sharing class WeatherViewController {
         UpdateWeather updateWeather = new UpdateWeather();
         return updateWeather.updateWeather(searchKey); 
     }
-
 }
